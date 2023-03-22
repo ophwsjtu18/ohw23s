@@ -1,0 +1,34 @@
+import cv2
+import numpy as np
+score=0
+chessbard=[[0,0,0],[0,0,0],[0,0,0]]
+back=cv2.imread("back.PNG")
+back2=cv2.imread("back2.PNG")
+dishu=cv2.imread("dishu.PNG")
+def draw_mouse(event,x,y,flags,param):
+    if event==cv2.EVENT_LBUTTONDBLCLK:
+        row=y
+        col=x
+        if chessboard[row][col]==1:
+            score+=10
+        else:
+            score-=2
+cv2.namedWindow('image')
+cv2.setMouseCallback('image',draw_circle)
+while score<100:
+    for i in range(3):
+        for j in range(3):
+            if np.random.rand(1,10)<6:
+                chessboard[j][i]=1
+                back[200*j:200+200*j,100+250*i:250*i]=mouse[500:700,0:250]
+            else:
+                chessboard[j][i]=0
+                back[200*j:200+200*j,100+250*i:250*i]=back2[200*j:200+200*j,100+250*i+250*i]
+    cv2.imshow('image',back)
+
+    
+    if cv2.waitKey(20)&0xFF==27:
+        break
+if score>=100:
+    print("Success")
+cv2.destroyAllWindows()
