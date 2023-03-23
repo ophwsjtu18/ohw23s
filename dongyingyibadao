@@ -1,0 +1,66 @@
+import numpy as np
+import cv2
+import random
+import time
+import sys
+
+
+
+list=[[0,0,0],[0,0,0],[0,0,0]]
+events=[i for i in dir(cv2) if'EVENT'in i]
+print(events)
+img=cv2.imread("OIP-C.jpg",1)
+cv2.imshow('image',img)
+points=0
+def DE(event,x,y,flags,param):
+    global points
+    if event==cv2.EVENT_LBUTTONDBLCLK:
+        print("hhh")
+        print(x//25,y//50)
+        if(list[x//25][y//50]!=1):
+            points=points-10
+        else:
+            img[(y//50)*50:(y//50)*50+50,(x//25)*25:(x//25)*25+25]=img[0:50,75:100]
+            points=points+10
+        if(points==100):
+            print("success")
+            sys.exit(0)
+        else:
+            print(points)
+        cv2.imshow('image',img)
+        print("lll")
+
+
+
+cv2.setMouseCallback("image",DE)        
+while(1):
+    img=cv2.imread("OIP-C.jpg",1)
+    y1=-50
+    y2=0
+    for i in range(0,3):
+        y1+=50
+        y2+=50
+        x1=0
+        x2=25
+        for k in range(0,3):
+            cv2.rectangle(img,(x1,y1),(x2,y2),(255,0,0),0)
+            if(random.randint(1, 9)<=5):
+                list[i][k]=1
+                img[y1:y2,x1:x2]=img[25:75,150:175]
+            x1+=25
+            x2+=25
+    #cv2.rectangle(img,(100,75),(150,125),(255,0,0),50)
+    cv2.imshow('image',img)
+    cv2.waitKey(5000)
+cv2.destroyAllWindows()
+
+        
+
+
+        
+
+
+
+        
+
+
