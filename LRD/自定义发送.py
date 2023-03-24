@@ -21,6 +21,6 @@ client.loop_start()
 
 while True:
     for i in [1,1,5,5,6,6,5,4,4,3,3,2,2,1]:
-        result = client.publish(topic,"i")       #发送数据
+        result = client.publish(topic,i)       #发送数据
         print(i)
         time.sleep(1)
